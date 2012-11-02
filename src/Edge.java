@@ -35,8 +35,8 @@ public class Edge {
     
     
     public String toString() {
-    	return ("From: " + vertex1.getFullName() + " To: "
-    			+ vertex2.getFullName()
+    	return ("From: " + vertex1.toString() + " To: "
+    			+ vertex2.toString()
     			+ " Distance " + distance());
     }
 }

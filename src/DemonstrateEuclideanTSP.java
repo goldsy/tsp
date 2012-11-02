@@ -41,7 +41,7 @@ public class DemonstrateEuclideanTSP {
         			(Math.random() * 1000));
         	
             // DEBUG
-        	System.out.println("Debug location: " + cities[index].getFullName());
+        	//System.out.println("New City: " + cities[index].toString());
             
         	// Update the numeric name for the next city to be added.
             name = (name + 1);

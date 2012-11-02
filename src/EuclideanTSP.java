@@ -16,6 +16,13 @@ public class EuclideanTSP {
     }
     
     
+    /**
+     * This method solves for the minimum spanning tree.
+     * 
+     * @return
+     * This method returns an array list of edges representing the minimum
+     * spanning tree.
+     */
     public ArrayList<Edge> solve() {
         // Set a start city.
     	City start = cities[0];
@@ -26,13 +33,16 @@ public class EuclideanTSP {
     		
     		v.setPriority(Edge.distance(start, v));
     		v.setParent(start);
+            
+    		// DEBUG
+    		//System.out.println("Set priority/parent " + v.toString());
     	}
         
     	mst = new ArrayList<Edge>();
         double minPriority;
         City minVertex;
         
-    	for (int index = 1; index < (cities.length - 1); ++index) {
+    	for (int index = 0; index < (cities.length - 1); ++index) {
             minPriority = -1;
             minVertex = null;
             
@@ -56,13 +66,15 @@ public class EuclideanTSP {
                     minVertex = cities[index2];
                     
                     // DEBUG
-                    System.out.println("New min found: "
-                    		+ cities[index2].getFullName());
+                    //System.out.println("New min found: " + cities[index2].toString());
                 }
             }
             
             minVertex.setPriority(0);
             mst.add(new Edge(minVertex, minVertex.getParent()));
+            
+            // DEBUG
+            System.out.println("Added vertex to MST:" + minVertex.toString());
             
             // Re-adjust the priorities.
             for (int index3 = 0; index3 < cities.length; ++index3) {

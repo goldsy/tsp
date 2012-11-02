@@ -44,6 +44,17 @@ public class City {
 	public City getParent() {
 		return parent;
 	}
+    
+	
+	public String getParentName() {
+        String temp = "";
+        
+		if (parent != null) {
+			temp = parent.getName();
+		}
+        
+		return temp;
+	}
 	
 	
 	public void setParent(City newParent) {
@@ -56,8 +67,16 @@ public class City {
 	}
     
 	
-	public String getFullName() {
-		return name + "(" + xCoordinate + "," +
-				yCoordinate + ")";
+	public String toString() {
+        String temp;
+        
+        temp = "\n-------------------------------------\n";
+        temp += "City name: " + name + "\n";
+        temp += "Location: (" + xCoordinate + ", " + yCoordinate + ")\n";
+        temp += "Priority: " + getPriority() + "\n";
+        temp += "Parent: " + getParentName() + "\n";
+        temp += "-------------------------------------\n";
+        
+		return temp;
 	}
 }
