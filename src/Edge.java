@@ -32,4 +32,11 @@ public class Edge {
         
     	return result;
     }
+    
+    
+    public String toString() {
+    	return ("From: " + vertex1.getFullName() + " To: "
+    			+ vertex2.getFullName()
+    			+ " Distance " + distance());
+    }
 }
