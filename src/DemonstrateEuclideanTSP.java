@@ -1,9 +1,15 @@
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.*;
 
 
 public class DemonstrateEuclideanTSP {
+    public static int SYNC = 500;
+    public static int SLEEP = 350;
+    
+    
 	/**
 	 * @param args
 	 */
@@ -54,5 +60,23 @@ public class DemonstrateEuclideanTSP {
         for (Edge e: mst) {
         	System.out.println(e.toString());
         }
+	}
+    
+    
+	/**
+	 * 
+	 * @param milliseconds
+	 */
+	public static void sleep(long milliseconds) {
+		Date d;
+		long start;
+		long now;
+        d = new Date();
+        start = d.getTime();
+        
+        do {
+        	d = new Date();
+        	now = d.getTime();
+        } while ((now - start) < milliseconds);
 	}
 }

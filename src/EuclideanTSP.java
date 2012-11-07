@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
  * This class is the starting point for the traveling salesman problem.
  * 
- * @author Jeff
+ * @author Jeff Goldsworthy
  *
  */
 public class EuclideanTSP {
@@ -11,6 +11,11 @@ public class EuclideanTSP {
     private ArrayList<Edge> mst;
     
     
+    /**
+     * Class ctor.
+     * 
+     * @param _cities
+     */
     public EuclideanTSP(City[] _cities) {
     	cities = _cities;
     }
@@ -47,7 +52,7 @@ public class EuclideanTSP {
             minVertex = null;
             
             // DEBUG
-            System.out.println("Index: " + index);
+            //System.out.println("Index: " + index);
             
             for (int index2 = 0; index2 < cities.length; ++index2) {
                 // DEBUG
@@ -71,10 +76,10 @@ public class EuclideanTSP {
             }
             
             minVertex.setPriority(0);
-            mst.add(new Edge(minVertex, minVertex.getParent()));
+            mst.add(new Edge(minVertex.getParent(), minVertex));
             
             // DEBUG
-            System.out.println("Added vertex to MST:" + minVertex.toString());
+            //System.out.println("Added vertex to MST:" + minVertex.toString());
             
             // Re-adjust the priorities.
             for (int index3 = 0; index3 < cities.length; ++index3) {
