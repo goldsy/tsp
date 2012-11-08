@@ -7,7 +7,15 @@ import javax.swing.*;
 
 public class DemonstrateEuclideanTSP {
     public static int SYNC = 500;
-    public static int SLEEP = 350;
+    
+    // Time in ms between drawing of each vertex or edge on the screen.
+    public static int SLEEP = 250;
+    
+    // This value adjusts the scale of the x and y values and therefore the size
+    // of the window on the screen.
+    // If you have the monitor space, drawing looks much cleaner with a scaling
+    // factor of 1000.
+    public static int scalingFactor = 750;
     
     
 	/**
@@ -43,8 +51,8 @@ public class DemonstrateEuclideanTSP {
         	//System.out.println("Name is: [" + name + "]");
         	
         	cities[index] = new City(name.toString(),
-        			(Math.random() * 1000),
-        			(Math.random() * 1000));
+        			(Math.random() * scalingFactor),
+        			(Math.random() * scalingFactor));
         	
             // DEBUG
         	//System.out.println("New City: " + cities[index].toString());
@@ -76,7 +84,7 @@ public class DemonstrateEuclideanTSP {
         System.out.println("Tour weight: " + Edge.totalDistance(tour));
         
         // Graphical stuff.
-        Map map = new Map();
+        Map map = new Map(scalingFactor);
         JFrame frame = new JFrame("Map of the TSP Soln (MST [Black] and Tour [Red])");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(map);
@@ -98,7 +106,8 @@ public class DemonstrateEuclideanTSP {
         	map.drawMstEdge(e);
         }
         
-        sleep(10000);
+        // DEBUG - just some time before slamming the tour on the screen.
+        //sleep(5000);
         
         // Draw each of the Tour edges.
         for (Edge e : tour) {

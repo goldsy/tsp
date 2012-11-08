@@ -12,27 +12,31 @@ import javax.swing.*;
  */
 public class Map extends JPanel {
 	private static final long serialVersionUID = 1L;
-    private static final int WIDTH = 1000;
-    private static final int HEIGHT = 1000;
+    private static final int WIDTH = 500;
+    private static final int HEIGHT = 500;
+    private int scalingFactor;
     private Color backgroundColor = Color.LIGHT_GRAY;
     private ArrayList<City> cities = new ArrayList<City>();
     private ArrayList<Edge> mst = new ArrayList<Edge>();
     private ArrayList<Edge> tour = new ArrayList<Edge>();
 
-	public Map() {
-        setPreferredSize(new Dimension(WIDTH, HEIGHT));
+	public Map(int _scalingFactor) {
+        scalingFactor = _scalingFactor;
+        setPreferredSize(new Dimension(scalingFactor, scalingFactor));
     }
     
     public void paintComponent(Graphics g) {
     	g.setColor(backgroundColor);
-    	g.fillRect(0, 0, WIDTH, HEIGHT);
+    	g.fillRect(0, 0, scalingFactor, scalingFactor);
         
         // Paint mst lines.
     	for (Edge e : mst) {
     		g.setColor(Color.BLACK);
     		
     		// Draw the line for this tour edge.
-            // TODO: (goldsy) This needs to be an int, so we'll need to do some scaling.
+            // Drawing requires and int, but just cast it to one. We aren't
+    		// making watches here, just need to get the relative positions on
+    		// the screen.
             g.drawLine((int)e.getStartCity().x(), (int)e.getStartCity().y(), 
             		(int)e.getEndCity().x(), (int)e.getEndCity().y());
     	}
@@ -42,7 +46,6 @@ public class Map extends JPanel {
     		g.setColor(Color.RED);
     		
     		// Draw the line for this tour edge.
-            // TODO: (goldsy) This needs to be an int, so we'll need to do some scaling.
             g.drawLine((int)e.getStartCity().x(), (int)e.getStartCity().y(), 
             		(int)e.getEndCity().x(), (int)e.getEndCity().y());
     	}
@@ -52,7 +55,6 @@ public class Map extends JPanel {
             // Set the color for the city marker.
     		g.setColor(Color.BLUE);
             
-            // TODO: (goldsy) SCALING NEEDS TO BE DONE HERE TOO!
     		g.fillOval((int)c.x(), (int)c.y(), 4, 4);
             
             // Set the color for the text.
@@ -72,7 +74,7 @@ public class Map extends JPanel {
             
             // If at the top edge, then put the text below the marker.
             if (tempY < 5) {
-            	tempY = (int)c.y() + 5;
+            	tempY = (int)c.y() + 10;
             }
             
             g.drawString(c.getName(), tempX, tempY);
