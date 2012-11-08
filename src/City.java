@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * This class represents a city which in Euclidean space is a vertex.
  * 
@@ -11,6 +13,7 @@ public class City {
 	private double yCoordinate;
 	private double currPriority = -1;
 	private City parent = null;
+    private ArrayList<City> adjacentCities = new ArrayList<>();
     
 	
 	
@@ -46,6 +49,25 @@ public class City {
 	}
     
 	
+	public void addAdjacentCity(City neighbor) {
+		adjacentCities.add(neighbor);
+	}
+    
+	
+	public ArrayList<City> getAdjacentCities() {
+		return adjacentCities;
+	}
+    
+	
+	public void dfs(ArrayList<City> target) {
+        target.add(this);
+        
+		for (City c : adjacentCities) {
+			c.dfs(target);
+		}
+	}
+    
+	
 	public String getParentName() {
         String temp = "";
         
@@ -78,5 +100,11 @@ public class City {
         temp += "-------------------------------------\n";
         
 		return temp;
+	}
+    
+	
+	public String minToString() {
+		//return ("City name: " + name + "(" + xCoordinate + ", " + yCoordinate + ")");
+		return ("City name: " + name);
 	}
 }

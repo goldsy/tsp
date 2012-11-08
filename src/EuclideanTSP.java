@@ -78,6 +78,10 @@ public class EuclideanTSP {
             minVertex.setPriority(0);
             mst.add(new Edge(minVertex.getParent(), minVertex));
             
+            // Store the adjacency information in the min vertex and it's parent.
+            //minVertex.addAdjacentCity(minVertex.getParent());
+            minVertex.getParent().addAdjacentCity(minVertex);
+            
             // DEBUG
             //System.out.println("Added vertex to MST:" + minVertex.toString());
             
@@ -96,5 +100,105 @@ public class EuclideanTSP {
     	}
         
     	return mst;
+    }
+    
+    
+    /**
+     * This method determines the tour.
+     * 
+     * @param mst
+     * The minimum spanning tree from which to determine the tour.
+     * 
+     * @return
+     * This method returns the tour based on the minimum spanning tree 
+     * provided.
+     */
+    public ArrayList<Edge> getTour(ArrayList<Edge> mst) {
+    	ArrayList<Edge> tour = new ArrayList<>();
+        
+    	// TODO: USE THAT TO LOOP AND DO A BFS.
+        // Init the array to the number of cities. The MST will always 
+    	// have n-1 edges relative to the number of cities.
+        /*
+    	City[] cityTour = new City[(mst.size() + 1)];
+        
+    	for (int index = 0; index < cityTour.length; ++index) {
+    		cityTour[index] = null;
+    	}
+        
+        cityTour[0] = mst.get(0).getStartCity();
+        
+        // Init the next index to 1 since the start (index=0) was just set.
+        int nextIndex = 1;
+        
+        for (int index = 0; (index < cityTour.length) && (cityTour[index] != null); ++index) {
+        	if (cityTour[index] == null) {
+        		System.out.println("OH SOMETHING REALLY BAD JUST HAPPENED!!! The city tour index is null. Got ahead of the wave.");
+        		System.exit(1);
+        	}
+            
+        	for (City c : cityTour[index].getAdjacentCities()) {
+        		cityTour[nextIndex] = c;
+        		++nextIndex;
+        	}
+        }
+        
+        if (nextIndex != cityTour.length) {
+            System.out.println("We should have ended exactly at the number of cities, but that didn't happen.");
+            System.exit(1);
+        }
+        
+        for (int index = 0; index < cityTour.length; ++index) {
+        	// Create the tour edges.
+            if ((index + 1) < cityTour.length) {
+            	tour.add(new Edge(cityTour[index], cityTour[index + 1]));
+            }
+            else {
+                // We're at the last city, so go back to the start.
+            	tour.add(new Edge(cityTour[index], cityTour[0]));
+            }
+        }
+        */
+    	
+        // DFS Walk of the tree.
+    	ArrayList<City> cityTour = new ArrayList<>();
+        
+        City startCity = mst.get(0).getStartCity();
+        startCity.dfs(cityTour);
+        
+        for (int index = 0; index < cityTour.size(); ++index) {
+        	// Create the tour edges.
+            if ((index + 1) < cityTour.size()) {
+            	tour.add(new Edge(cityTour.get(index), cityTour.get(index + 1)));
+            }
+            else {
+                // We're at the last city, so go back to the start.
+            	tour.add(new Edge(cityTour.get(index), cityTour.get(0)));
+            }
+        }
+    	
+    	/*
+        // This was my original terrible attempt.
+    	City prevCity = null;
+    	City startCity = null;
+    	
+    	for (Edge e : mst) {
+    		if (prevCity == null) {
+                // Initialize the start and previous city.
+    			startCity = e.getStartCity();
+                prevCity = startCity;
+    		}
+            
+            // Add this leg of the tour.
+    		tour.add(new Edge(prevCity, e.getEndCity()));
+            
+    		prevCity = e.getEndCity();
+    	}
+        
+    	// We need to get back to the start city to complete the tour.
+    	tour.add(new Edge(prevCity, startCity));
+        
+        */
+    	return tour;
     }
 }

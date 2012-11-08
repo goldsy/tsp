@@ -35,7 +35,7 @@ public class DemonstrateEuclideanTSP {
         
         City[] cities = new City[numCities];
         
-        // Init the city name.
+        // Init the city name. Start at zero so we can index the array easily.
         Integer name = 1;
         
         for (int index = 0; index < cities.length; ++index) {
@@ -57,8 +57,54 @@ public class DemonstrateEuclideanTSP {
         
         ArrayList<Edge> mst = solver.solve();
         
+        System.out.println("\n\n-------- MST ---------");
+        
         for (Edge e: mst) {
         	System.out.println(e.toString());
+        }
+        
+        System.out.println("MST weight: " + Edge.totalDistance(mst));
+        
+        ArrayList<Edge> tour = solver.getTour(mst);
+        
+        System.out.println("\n\n-------- TOUR ---------");
+        
+        for (Edge e: tour) {
+        	System.out.println(e.toString());
+        }
+        
+        System.out.println("Tour weight: " + Edge.totalDistance(tour));
+        
+        // Graphical stuff.
+        Map map = new Map();
+        JFrame frame = new JFrame("Map of the TSP Soln (MST [Black] and Tour [Red])");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().add(map);
+        frame.pack();
+        frame.setVisible(true);
+        sleep(SYNC);
+        
+        // Draw each of the cities.
+        for (int index = 0; index < cities.length; ++index) {
+            sleep(SLEEP);
+            
+        	map.drawCity(cities[index]);
+        }
+        
+        // Draw each of the MST edges.
+        for (Edge e : mst) {
+        	sleep(SLEEP);
+        	
+        	map.drawMstEdge(e);
+        }
+        
+        sleep(10000);
+        
+        // Draw each of the Tour edges.
+        for (Edge e : tour) {
+        	sleep(SLEEP);
+        	
+        	map.drawTourEdge(e);
         }
 	}
     
