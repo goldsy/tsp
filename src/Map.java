@@ -12,19 +12,33 @@ import javax.swing.*;
  */
 public class Map extends JPanel {
 	private static final long serialVersionUID = 1L;
-    private static final int WIDTH = 500;
-    private static final int HEIGHT = 500;
+    //private static final int WIDTH = 500;
+    //private static final int HEIGHT = 500;
     private int scalingFactor;
     private Color backgroundColor = Color.LIGHT_GRAY;
     private ArrayList<City> cities = new ArrayList<City>();
     private ArrayList<Edge> mst = new ArrayList<Edge>();
     private ArrayList<Edge> tour = new ArrayList<Edge>();
 
+    
+    /**
+     * Class ctor.
+     * 
+     * @param _scalingFactor
+     * The scaling factor determines the size of the panel that is displayed
+     * on the screen.
+     */
 	public Map(int _scalingFactor) {
         scalingFactor = _scalingFactor;
         setPreferredSize(new Dimension(scalingFactor, scalingFactor));
     }
     
+    
+	/**
+	 * This method paints all of the components on the screen. City markers
+	 * are drawn in blue with black text, the MST edges are displayed with black
+	 * lines and the tour edges are displayed with red lines.
+	 */
     public void paintComponent(Graphics g) {
     	g.setColor(backgroundColor);
     	g.fillRect(0, 0, scalingFactor, scalingFactor);
@@ -81,18 +95,44 @@ public class Map extends JPanel {
     	}
     }
     
+    
+    /**
+     * This method adds the specified city to the list of cities to draw on the
+     * screen and then calls repaint to draw the specified city on the screen.
+     * 
+     * @param c
+     * The city to draw on the screen.
+     */
     public void drawCity(City c) {
         cities.add(c);
         
         repaint();
     }
 
+    
+    /**
+     * This method adds the specified edge to the list of MST edges to draw on 
+     * the screen and then calls repaint to draw the specified edge on the 
+     * screen.
+     * 
+     * @param e
+     * The edge to draw on the screen.
+     */
     public void drawMstEdge(Edge e) {
         mst.add(e);
         
         repaint();
     }
     
+    
+    /**
+     * This method adds the specified edge to the list of tour edges to draw on 
+     * the screen and then calls repaint to draw the specified edge on the 
+     * screen.
+     * 
+     * @param e
+     * The edge to draw on the screen.
+     */
     public void drawTourEdge(Edge e) {
         tour.add(e);
         

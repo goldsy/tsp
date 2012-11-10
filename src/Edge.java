@@ -3,13 +3,15 @@ import java.util.ArrayList;
 /**
  * This class represents the edges between all cities.
  * 
- * @author Jeff
+ * @author Jeff Goldsworthy
  *
  */
 public class Edge {
 	// Data members.
 	private City vertex1;
 	private City vertex2;
+    
+	// Distance
     private double dist = -1;
     
     
@@ -29,7 +31,9 @@ public class Edge {
     
     
     /**
-     * This method returns the distance/priority of the edge.
+     * This method returns the distance/priority of the edge. If the distance
+     * has not yet been calculated then it is calculated and its value is
+     * latched into the dist variable.
      * 
      * @return
      * This method returns the distance between the vertices as a double.
@@ -41,7 +45,6 @@ public class Edge {
         
     	return dist;
     }
-    
     
     
     /**
@@ -85,7 +88,6 @@ public class Edge {
         
     	return accumDistance;
     }
-    
     
     
     /**
